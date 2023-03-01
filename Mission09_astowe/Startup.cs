@@ -4,10 +4,13 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Mission09_astowe.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mission09_astowe
 {
@@ -24,6 +27,11 @@ namespace Mission09_astowe
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<BookstoreContext>(options =>
+            {
+                options.UseSqlite(Configuration["ConnectionStrings:BooksDBConnection"]);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

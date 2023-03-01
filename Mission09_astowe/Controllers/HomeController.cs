@@ -13,16 +13,19 @@ namespace Mission09_astowe.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        
-        public IActionResult Index()
+        private BookstoreContext context { get; set; }
+
+        public HomeController (BookstoreContext cntx)
         {
-            return View();
+            context = cntx;
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Index()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var data = context.Books.ToList();
+
+            return View(data);
         }
+
     }
 }
