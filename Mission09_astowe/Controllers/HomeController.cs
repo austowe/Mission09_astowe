@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mission09_astowe.Models;
+using Mission09_astowe.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,20 +12,33 @@ namespace Mission09_astowe.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private IBookstoreRepository repo;
 
-        private BookstoreContext context { get; set; }
-
-        public HomeController (BookstoreContext cntx)
+        public HomeController (IBookstoreRepository repos)
         {
-            context = cntx;
+            repo = repos;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageNum = 1)
         {
-            var data = context.Books.ToList();
+            int pageSize = 10;
 
-            return View(data);
+            var x = new BooksViewModel
+            {
+                Books = repo.Books
+                .OrderBy(b => b.Title)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+
+                PageInfo = new PageInfo
+                {
+                    TotalNumBooks = repo.Books.Count(),
+                    BooksPerPage = pageSize,
+                    CurrentPage = pageNum
+                }
+            };
+
+            return View(x);
         }
 
     }
