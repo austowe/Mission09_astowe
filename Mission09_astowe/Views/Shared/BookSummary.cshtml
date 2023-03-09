@@ -9,10 +9,6 @@
             @Model.Title
         </h4>
 
-        <span class="badge badge-pill bg-info" style="float:right">
-            $@Model.Price
-        </span>
-
     </div>
 
     <ul>
@@ -23,12 +19,20 @@
         <li>Category: @Model.Category</li>
         <li>Page Count: @Model.PageCount pages</li>
     </ul>
+    <form method="post" asp-page="/Purchase">
+
+        <input type="hidden" asp-for="@Model.BookId" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+
+        <span class="card-text">
+            <button type="submit" class="btn btn-success btn-sm float-right position-relative">Purchase<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                $@Model.Price
+                </span>
+           </button>
+        </span>
+    </form>
 </div>
 
-<form method="post" asp-page="/Puchase">
-    <span class="card-text">
-        <button type="submit" class="btn btn-success btn-sm float-right">Purchase</button>
-    </span>
-</form>
+
 
 <br />
