@@ -20,6 +20,7 @@ namespace Mission09_astowe.Models
         }
 
         public DbSet<Books> Books { get; set; }
+        public DbSet<Purchase> Puchases { get; set; }
 
     }
 }
