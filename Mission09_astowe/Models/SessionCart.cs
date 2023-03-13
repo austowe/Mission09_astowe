@@ -17,6 +17,8 @@ namespace Mission09_astowe.Models
 
             SessionCart cart = session?.GetJson<SessionCart>("Cart") ?? new SessionCart();
 
+            cart.Session = session;
+
             return cart;
         }
 

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mission09_astowe.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace Mission09_astowe
 {
@@ -41,6 +42,7 @@ namespace Mission09_astowe
             services.AddSession();
 
             services.AddScoped<Cart>(x => SessionCart.GetCart(x));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
