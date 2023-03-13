@@ -9,7 +9,7 @@ namespace Mission09_astowe.Models
     {
         public List<CartLineItem> Items { get; set; } = new List<CartLineItem>();
 
-        public void AddItem(Books book, int qty)
+        public virtual void AddItem(Books book, int qty)
         {
             CartLineItem line = Items
                 .Where(b => b.Book.BookId == book.BookId)
@@ -27,6 +27,16 @@ namespace Mission09_astowe.Models
             {
                 line.Quantity += qty;
             }
+        }
+
+        public virtual void RemoveItem(Books book)
+        {
+            Items.RemoveAll(x => x.Book.BookId == book.BookId);
+        }
+
+        public virtual void ClearCart()
+        {
+            Items.Clear();
         }
 
         public double CalculateTotal()

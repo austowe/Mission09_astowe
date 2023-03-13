@@ -39,6 +39,8 @@ namespace Mission09_astowe
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            services.AddScoped<Cart>(x => SessionCart.GetCart(x));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
